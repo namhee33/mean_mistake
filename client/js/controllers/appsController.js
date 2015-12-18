@@ -13,19 +13,7 @@ myApp.controller('appsController', function(appFactory){
 	this.addApp = function(){
 		this.old_day = false;
 		this.hasAppoint = false;
-		console.log('new appointsment: AC: ', this.new_app);
-		console.log('time: ', this.new_app.app_time);
 		
-		console.log('new app_date Month: ', this.new_app.app_date.getMonth());
-		console.log('new app_date Date: ', this.new_app.app_date.getDate());
-		console.log('new app_date Year: ', this.new_app.app_date.getFullYear());
-
-		console.log('all apps date: ', this.allApps[0].app_date);
-		var _d = new Date(this.allApps[0].app_date);
-		console.log('nMonth: ', _d.getMonth());
-		console.log('ndate: ', _d.getDate());
-		console.log('nyear: ', _d.getFullYear());
-
 		if(this.today_date > this.new_app.app_date){
 			console.log('old day##########');
 			this.old_day = true;
