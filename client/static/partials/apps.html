@@ -1,0 +1,60 @@
+
+<h2>Login user: {{uc.login_user.name}} </h2>
+<h3 ng-if="uc.login_user.name === undefined || uc.login_user.name.length <= 0"> You need to login, first! <a href='#/login'>Go login</a></h3>
+<div ng-if="uc.login_user.name.length > 1">
+	<a href='#/login' role='button' ng-click="uc.logout()">Log Out</a> | <a href='#/apps'>Main Home</a>
+	<hr>
+
+	<div id='container'>
+		<h2> Doctor's Appointments </h2>
+		<input type='text' > <!-- filter -->
+
+		<table>
+			<thead>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Pateint Name</th>
+				<th>Complain</th>
+				<th>Cancel </th>
+			</thead>
+
+			<tbody>
+				<tr ng-repeat='app in ac.allApps track by $index'>
+					
+					<td>{{app.app_date | date: 'MMMM dd, yyyy'}}</td>
+					<td>{{app.app_time | date: 'hh:mm:a'}}</a></td>
+					<td>{{app._user.name}}</td>
+					<td>{{app.complain}}</td>
+					<td><button ng-disabled="uc.login_user._id != app._user._id" ng-click='ac.deleteApp(uc.login_user._id, app._id)'>Cancel</button></td>
+				</tr>
+			</tbody>
+		</table><br><br>
+
+
+		<!-- <div><button>Add New Appoitment</button></div> -->
+	</div> <!-- container -->
+	<!-- later, you have to move the following to another page -->
+	<hr>
+	<div id='addAppoint'>
+		<h2>New Appointment</h2>
+		<form name="myForm" ng-submit="ac.addApp()">
+			<input hidden type='text' ng-model='ac.user_id' ng-init='ac.user_id=uc.login_user._id'>
+			<div>
+				Date: <input name='date' type='date' ng-model='ac.new_app.app_date' required >
+				Time: <input name='time' type='time' ng-model='ac.new_app.app_time' required> 
+			</div>
+			<div>
+				Complain: <textarea ng-model='ac.new_app.complain' required></textarea>
+			</div>
+			<div>
+				<button>Cancel</button>
+				<input type='submit' value="Add Appointment">
+			</div>
+		</form>
+		<div ng-messages="myForm.date.$error" style="color:maroon" role="alert" ng-show= 'myForm.date.$touched'>
+	    	<div ng-message="required">You did not enter a field</div>
+		</div> <!-- end of message -->
+	    <div ng-show="ac.old_day">Pick after Today!</div>
+	    
+	</div>
+</div>
